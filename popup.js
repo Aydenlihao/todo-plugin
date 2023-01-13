@@ -10,14 +10,7 @@ chrome.storage.sync.get({ list: [] }, function (items) {
     for (let index = 0; index < list.length; index++) {
       let li = document.createElement('li');
       let value = list[index];
-      li.innerHTML =
-        '<li value=' +
-        value +
-        '>' +
-        value +
-        '<a href=' +
-        value +
-        '>删除</a></li>';
+      li.innerHTML = value + '<a href=' + value + '>删除</a>';
       itemList.appendChild(li);
     }
   }
@@ -25,8 +18,7 @@ chrome.storage.sync.get({ list: [] }, function (items) {
 newItem.onclick = (params) => {
   let li = document.createElement('li');
   let value = text.value;
-  li.innerHTML =
-    '<li value=' + value + '>' + value + '<a href=' + value + '>删除</a></li>';
+  li.innerHTML = value + '<a href=' + value + '>删除</a>';
   itemList.appendChild(li);
   chrome.storage.sync.set({ list: [...default_list, value] }, function () {
     default_list = [...default_list, value];
@@ -52,8 +44,6 @@ itemList.onclick = async function (e) {
     var lis = document.querySelectorAll('li');
     itemList.removeChild(lis[index]);
     default_list.splice(index, 1);
-    chrome.storage.sync.set({ list: default_list }, function () {
-      alert(JSON.stringify(default_list));
-    });
+    chrome.storage.sync.set({ list: default_list });
   }
 };
